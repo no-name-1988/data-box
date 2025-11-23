@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tra cứu danh hiệu quần vợt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    #result, #playerList {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tra cứu thông số (stats) quần vợt Tennis</h1>
+  <label for="playerName">Nhập tên quần vợt:</label><br>
+  <input type="text" id="playerName" placeholder="Ví dụ: Novak Djokovic,...">
+  <button onclick="searchTitles()">Tra cứu</button>
+  <button onclick="showSupportedPlayers()">Xem danh sách quần vợt hỗ trợ</button>
+
+  <div id="result"></div>
+  <div id="playerList" style="display:none;"></div>
+
+  <script src="data/stats.js"></script>
+  <script>
+    function searchTitles() {
+      const name = document.getElementById("playerName").value.trim();
+      const resultDiv = document.getElementById("result");
+      const listDiv = document.getElementById("playerList");
+      listDiv.style.display = "none";
+
+      if (playerTitles[name]) {
+        resultDiv.innerHTML = playerTitles[name];
+      } else {
+        resultDiv.innerHTML = `Không tìm thấy dữ liệu cho quần vợt <strong>${name}</strong>.`;
+      }
+    }
+
+    function showSupportedPlayers() {
+      const listDiv = document.getElementById("playerList");
+      const names = Object.keys(playerTitles);
+      listDiv.innerHTML = `
+        <strong>Các cầu thủ được hỗ trợ:</strong>
+        <ul>${names.map(name => `<li>${name}</li>`).join("")}</ul>
+      `;
+      listDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>
